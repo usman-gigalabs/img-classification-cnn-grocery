@@ -1,4 +1,6 @@
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
@@ -86,8 +88,9 @@ def process_subcategories(directory, parent_category_index=None, parent_category
 process_subcategories(train_dir)
 
 # Load and preprocess the input image for prediction
-# input_image_path = 'GroceryStoreDataset/sample_images/natural/Pink-Lady.jpg'
-input_image_path = 'GroceryStoreDataset/dataset/test/Vegetables/Carrots/Carrots_016.jpg'
+# input_image_path = '/Users/gigalabs/Downloads/download.jpeg'
+# input_image_path = 'GroceryStoreDataset/sample_images/natural/Yellow-Onion.jpg'
+input_image_path = 'GroceryStoreDataset/dataset/test/Vegetables/Ginger/Ginger_006.jpg'
 img = image.load_img(input_image_path, target_size=image_size)
 img_array = image.img_to_array(img)
 img_array = np.expand_dims(img_array, axis=0)

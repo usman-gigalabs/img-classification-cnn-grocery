@@ -6,10 +6,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 from keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from keras.utils import to_categorical
-
+from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 
 # Define data directories
@@ -97,32 +95,13 @@ print(num_classes)
 # One-hot encode the labels
 y_train = to_categorical(y_train, num_classes=num_classes)
 
-# Create a CNN model
-model = Sequential()
-
-# Add convolutional layers
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(image_size[0], image_size[1], 3)))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
-model.add(Conv2D(128, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
-# Flatten the output
-model.add(Flatten())
-
-# Add fully connected layers
-model.add(Dense(512, activation='relu'))
-model.add(Dropout(0.5))
-
-# Output layer with num_classes neurons
-model.add(Dense(num_classes, activation='softmax'))
+# Load the saved model
+model = load_model("my_image_classifier_model2.keras")
 
 # Compile the model
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
+# Train the model
 num_epochs = 10
 
 # Train the model
